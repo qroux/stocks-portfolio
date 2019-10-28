@@ -1,4 +1,5 @@
 <template>
+<div>
   <nav class="navbar navbar-expand-lg navbar-light bg-light px-4">
     <router-link to='/' activeClass="active navbar-brand"><a>Stock Trader</a></router-link>
     <button class="navbar-toggler" type="button">
@@ -12,7 +13,7 @@
       </ul>
       <ul class="navbar-nav">
         <li class="nav-item mr-2">
-          <a class="nav-link" href="#">End Day</a>
+          <a id='end' class="nav-link" @click="endDay">End Day</a>
         </li>
         <li class="nav-item dropdown mr-2">
           <a
@@ -35,16 +36,27 @@
       </ul>
     </div>
   </nav>
+</div>
 </template>
 
 <script>
+  import {mapActions} from 'vuex'
+
   export default {
     computed: {
       funds() {
         return this.$store.getters.funds
+        }
+      },
+      methods: {
+        ...mapActions([
+          'randomizeStocks'
+        ]),
+        endDay() {
+          this.randomizeStocks();
+        }
       }
     }
-  }
 </script>
 
 <style scoped>
@@ -53,5 +65,8 @@
   }
   .navbar {
     border: 1px solid rgba(201, 201, 201, .3);
+  }
+  #end {
+    cursor: pointer;
   }
 </style>
