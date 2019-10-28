@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light px-4">
     <router-link to='/' activeClass="active navbar-brand"><a>Stock Trader</a></router-link>
     <button class="navbar-toggler" type="button">
       <span class="navbar-toggler-icon"></span>
@@ -11,10 +11,10 @@
         <router-link tag="li" to='/stocks' activeClass="active"><a class="nav-link">Stocks</a></router-link>
       </ul>
       <ul class="navbar-nav">
-        <li class="nav-item">
+        <li class="nav-item mr-2">
           <a class="nav-link" href="#">End Day</a>
         </li>
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown mr-2">
           <a
             class="nav-link dropdown-toggle"
             href="#" id="navbarDropdown"
@@ -31,16 +31,27 @@
             <li><a class="dropdown-item" href="#">Something else here</a></li>
           </div>
         </li>
+        <li class="navbar-text"><strong>( Funds: {{ funds }} ) </strong></li>
       </ul>
     </div>
   </nav>
 </template>
 
 <script>
+  export default {
+    computed: {
+      funds() {
+        return this.$store.getters.funds
+      }
+    }
+  }
 </script>
 
 <style scoped>
   .active {
     font-color: black;
+  }
+  .navbar {
+    border: 1px solid rgba(201, 201, 201, .3);
   }
 </style>
