@@ -31,7 +31,7 @@
             <li><a class="dropdown-item" href="#">Something else here</a></li>
           </div>
         </li>
-        <li class="navbar-text"><strong>( Funds: {{ funds }} ) </strong></li>
+        <li class="navbar-text"><strong>Funds: {{ funds | currency }}</strong></li>
       </ul>
     </div>
   </nav>
