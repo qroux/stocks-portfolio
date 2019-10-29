@@ -22,10 +22,15 @@
             role="button"
             data-toggle="dropdown"
             aria-haspopup="true"
-            aria-expanded="false">
+            aria-expanded="false"
+            @click="handleDropdown">
             Save & Load
           </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <div class="dropdown-menu"
+          aria-labelledby="navbarDropdown"
+          :class="{show: openDropdown}"
+          @click="handleDropdown"
+          >
             <li><a class="dropdown-item" href="#">Save Data</a></li>
             <li><a class="dropdown-item" href="#">Load Data</a></li>
             <div class="dropdown-divider"></div>
@@ -43,6 +48,11 @@
   import {mapActions} from 'vuex'
 
   export default {
+    data() {
+      return {
+        openDropdown: false
+      }
+    },
     computed: {
       funds() {
         return this.$store.getters.funds
@@ -54,6 +64,9 @@
         ]),
         endDay() {
           this.randomizeStocks();
+        },
+        handleDropdown() {
+          this.openDropdown = !this.openDropdown
         }
       }
     }
