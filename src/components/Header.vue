@@ -23,16 +23,19 @@
             data-toggle="dropdown"
             aria-haspopup="true"
             aria-expanded="false"
-            @click="handleDropdown">
+            @mouseover="openDropdown = true"
+            >
             Save & Load
           </a>
           <div class="dropdown-menu"
           aria-labelledby="navbarDropdown"
           :class="{show: openDropdown}"
-          @click="handleDropdown"
+          @mouseover="openDropdown = true"
+          @mouseout="openDropdown = false"
           >
-            <li><a class="dropdown-item" href="#">Save Data</a></li>
-            <li><a class="dropdown-item" href="#">Load Data</a></li>
+
+            <li><a class="dropdown-item" href="#" @click="saveData">Save Data</a></li>
+            <li><a class="dropdown-item" href="#" @click="loadData">Load Data</a></li>
             <div class="dropdown-divider"></div>
             <li><a class="dropdown-item" href="#">Something else here</a></li>
           </div>
@@ -59,14 +62,26 @@
         }
       },
       methods: {
-        ...mapActions([
-          'randomizeStocks'
-        ]),
+        ...mapActions({
+          randomizeStocks: 'randomizeStocks',
+          fetchData: 'loadData'
+        }),
         endDay() {
           this.randomizeStocks();
         },
         handleDropdown() {
           this.openDropdown = !this.openDropdown
+        },
+        saveData() {
+          const data = {
+            funds: this.$store.getters.funds,
+            stockPortfolio: this.$store.getters.stockPortfolio,
+            stocks: this.$store.getters.stocks
+          };
+          this.$http.put('data.json', data);
+        },
+        loadData() {
+          this.fetchData();
         }
       }
     }
